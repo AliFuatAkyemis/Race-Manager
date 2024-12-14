@@ -12,6 +12,7 @@ public class RaceTimer {
 			String path = "C:\\Users\\alifu\\Desktop\\Race\\";
 			BufferedWriter writer = null;
 			String[][] laps = new String[60][6];
+			String start = "01:35";
 			int n = 0;
 			while (true) {
 				System.out.print("Number: ");
@@ -21,15 +22,21 @@ public class RaceTimer {
 				n = isolInt(in);
 				if (n <= 0) break;
 				date = new Date();
-				addToArray(laps[n-1], date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "\n");
+				addToArray(laps[n-1], date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
 			}
 			for (int i = 0;i < laps.length;i++) {
-				writer = new BufferedWriter(new FileWriter(path + Integer.toString(i+1) + ".txt"));
+				writer = new BufferedWriter(new FileWriter(path + (i+1) + ".txt"));
 				for (int j = 0;j < laps[0].length;j++) {
-					if (laps[i][j] != null) writer.write(Integer.toString(j+1) + " - " + laps[i][j]);
+					if (laps[i][j] != null) writer.write((j+1) + " - " + laps[i][j] + "\n");
 				}
 				writer.close();
 			}
+			writer = new BufferedWriter(new FileWriter(path + "Results.txt"));
+			for (int i = 0;i < laps.length;i++) {
+				double result = totalTimeOfLaps(laps[i]);
+				if (result != -1) writer.write((i+1) + " -> " + toDate(result) + " -> " + toDate(result - toTime(start)) + "\n");
+			}
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,6 +49,43 @@ public class RaceTimer {
 				return;
 			}
 		}
+	}
+	
+	public static double totalTimeOfLaps(String[] arr) {
+		String str = "";
+		for (int i = 0;i < arr.length;i++) {
+			if (arr[i] == null) return -1;
+			if (arr[i+1] == null || i == arr.length) {
+				str = arr[i];
+				break;
+			}
+		}
+		return toTime(str);
+	}
+	
+	public static double toTime(String str) {
+		int j = 0;
+		double sum = 0, factor = 3600;
+		char[] charr = str.toCharArray();
+		for (int i = 0;i < charr.length;i++) {
+			if (factor == 1 || charr[i] == ':') {
+				if (factor == 1) i = str.length();
+				sum += (factor * Integer.valueOf(str.substring(j, i)));
+				j = i+1;
+				factor /= 60;
+			}
+		}
+		return sum;
+	}
+	
+	public static String toDate(double time) {
+		int hour = 0, min = 0, sec = 0;
+		sec = (int) time%60;
+		time /= (int) 60;
+		min = (int) time%60;
+		time /= (int) 60;
+		hour = (int) time%60;
+		return hour + ":" + min + ":" + sec;
 	}
 	
 	public static int isolInt(String str) {
