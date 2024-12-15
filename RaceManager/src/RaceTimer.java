@@ -9,10 +9,10 @@ public class RaceTimer {
 		try {
 			Scanner input = new Scanner(System.in);
 			Date date = new Date();
-			String path = "C:\\Users\\alifu\\Desktop\\Race\\";
+			String path = "C:\\Users\\alifu\\eclipse-workspace\\RaceManager\\src\\Logs\\";
 			BufferedWriter writer = null;
 			String[][] laps = new String[60][6];
-			String start = "01:35";
+			String start = "01:15:00";
 			int n = 0;
 			while (true) {
 				System.out.print("Number: ");
@@ -34,7 +34,9 @@ public class RaceTimer {
 			writer = new BufferedWriter(new FileWriter(path + "Results.txt"));
 			for (int i = 0;i < laps.length;i++) {
 				double result = totalTimeOfLaps(laps[i]);
-				if (result != -1) writer.write((i+1) + " -> " + toDate(result) + " -> " + toDate(result - toTime(start)) + "\n");
+				if (result != -1) {
+					writer.write((i+1) + " -> " + toDate(result) + " -> " + toDate(result - toTime(start)) + "\n");
+				}
 			}
 			writer.close();
 		} catch (IOException e) {
