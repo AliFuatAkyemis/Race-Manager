@@ -9,7 +9,7 @@ public class RaceTimer {
 		try {
 			Scanner input = new Scanner(System.in);
 			Date date = new Date();
-			String path = "C:\\Users\\alifu\\eclipse-workspace\\RaceManager\\src\\Logs\\";
+			String path = "logs/";
 			BufferedWriter writer = null;
 			String[][] laps = new String[60][6];
 			String start = "01:15:00";
