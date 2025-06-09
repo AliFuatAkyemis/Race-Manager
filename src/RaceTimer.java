@@ -12,7 +12,7 @@ public class RaceTimer {
 			String path = "logs/";
 			BufferedWriter writer = null;
 			String[][] laps = new String[60][6];
-			String start = "01:15:00";
+			String start = "00:00:00";
 			int n = 0;
 			while (true) {
 				System.out.print("Number: ");
