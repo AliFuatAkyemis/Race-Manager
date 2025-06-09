@@ -5,13 +5,15 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class RaceTimer {
+        private static int racerCount = 60, lapCount = 6;
+
 	public static void main(String[] args) {
 		try {
 			Scanner input = new Scanner(System.in);
 			Date date = new Date();
 			String path = "logs/";
 			BufferedWriter writer = null;
-			String[][] laps = new String[60][6];
+			String[][] laps = new String[racerCount][lapCount];
 			String start = "00:00:00";
 			int n = 0;
 			while (true) {
