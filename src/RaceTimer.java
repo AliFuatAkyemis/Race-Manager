@@ -41,6 +41,7 @@ public class RaceTimer {
 				}
 			}
 			writer.close();
+                        input.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
